@@ -9,11 +9,11 @@ from sklearn.metrics import mean_squared_error
 import streamlit as st
 
 def main():
-    #st.title("Data Mining Insights")
-    #st.write("Loading cleaned data...")
+    # st.title("Data Mining Insights")
+    # st.write("Loading cleaned data...")
     data = pd.read_excel('Cleaned_Online_Retail.xlsx')
 
-    #st.write("Data cleaning...")
+    # st.write("Data cleaning...")
     data.dropna(subset=['CustomerID', 'UnitPrice', 'Quantity'], inplace=True)
     data['TotalSales'] = data['Quantity'] * data['UnitPrice']
 
@@ -53,12 +53,21 @@ def main():
     mse = mean_squared_error(y_test, y_pred)
     st.write(f"Mean Squared Error: {mse:.2f}")
 
+    # Plot Actual vs. Predicted Total Sales
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.scatter(y_test, y_pred)
+    ax.scatter(y_test, y_pred, alpha=0.6)
     ax.set_xlabel('Actual Total Sales')
     ax.set_ylabel('Predicted Total Sales')
     ax.set_title('Actual vs Predicted Total Sales')
-    ax.plot([0, max(y_test)], [0, max(y_test)], color='red', linewidth=2)
+
+    # Plot the ideal regression line (y = x)
+    max_val = max(max(y_test), max(y_pred))
+    min_val = min(min(y_test), min(y_pred))
+    ax.plot([min_val, max_val], [min_val, max_val], color='red', linewidth=2, label='Ideal: y = x')
+
+    # Add legend
+    ax.legend()
+
     st.pyplot(fig)
 
 if __name__ == '__main__':
