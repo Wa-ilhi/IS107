@@ -2,6 +2,6 @@ streamlit
 streamlit-option-menu
 psycopg2-binary
 matplotlib
-sklearn
+scikit-learn
 pandas
 numpy
