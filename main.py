@@ -24,3 +24,6 @@ if selected == "Data Visuals":
 elif selected == "Data Mining Insights":
     st.title("Data Mining Insights")
     datamining.main()  # Call the main function from datamining.py
+
+
+# python -m streamlit run main.py (use this to run python project)
